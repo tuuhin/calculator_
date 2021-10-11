@@ -1,20 +1,23 @@
+import 'package:calculator/model/basecalc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StdCalcBoard extends StatefulWidget {
   final ValueChanged<String>? calc;
   const StdCalcBoard({Key? key, this.calc}) : super(key: key);
-
   @override
   State<StdCalcBoard> createState() => _StdCalcBoardState();
 }
 
 class _StdCalcBoardState extends State<StdCalcBoard> {
-  String value = '';
+  final BaseCalc _baseCalc = BaseCalc();
+  String value = '0';
+  final List<String> _operatorList = ['+', '-', '*', '/'];
   static const _buttonStyle =
       TextStyle(fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold);
   static const _buttonNumberStyle =
       TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,30 +32,57 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
           spacing: 10,
           children: [
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  value = _baseCalc.pow2(value);
+                  widget.calc!.call(value);
+                },
                 child: const Text('x\u00B2', style: _buttonStyle)),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  value = _baseCalc.sqrt(value);
+                  widget.calc!.call(value);
+                },
                 child: const Text('\u221A', style: _buttonStyle)),
             TextButton(
                 onPressed: () {},
                 child: const Text('\u00B1', style: _buttonStyle)),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  value = _baseCalc.recripocal(value);
+                  widget.calc!.call(value);
+                },
                 child: const Text('\u00b9\u2044\u2093', style: _buttonStyle)),
             TextButton(
                 onPressed: () {
-                  value = '';
+                  value = '0';
                   widget.calc!.call(value);
+                  _baseCalc.clearHistory();
                 },
                 child: const Text('CE', style: _buttonStyle)),
             TextButton(
-                onPressed: () {}, child: const Text('C', style: _buttonStyle)),
+                onPressed: () {
+                  value = '0';
+                  widget.calc!.call(value);
+                },
+                child: const Text('C', style: _buttonStyle)),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (value.length > 1) {
+                    value = value.substring(0, value.length - 1);
+                    widget.calc!.call(value);
+                  } else if (value.length == 1) {
+                    widget.calc!.call('');
+                  }
+                },
                 child: const Text('\u2190', style: _buttonStyle)),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (!_operatorList
+                      .any((element) => value.endsWith(element))) {
+                    value += '/';
+                    widget.calc!.call(value);
+                  }
+                },
                 child: const Text('\u00f7', style: _buttonStyle)),
             TextButton(
                 onPressed: () {
@@ -73,7 +103,17 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
                 },
                 child: const Text('9', style: _buttonNumberStyle)),
             TextButton(
-                onPressed: () {}, child: const Text('x', style: _buttonStyle)),
+                onPressed: () {
+                  if (!_operatorList
+                      .any((element) => value.endsWith(element))) {
+                    if (value.isEmpty) {
+                      value += '1';
+                    }
+                    value += '*';
+                    widget.calc!.call(value);
+                  }
+                },
+                child: const Text('x', style: _buttonStyle)),
             TextButton(
                 onPressed: () {
                   value += '4';
@@ -93,7 +133,17 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
                 },
                 child: const Text('6', style: _buttonNumberStyle)),
             TextButton(
-                onPressed: () {}, child: const Text('-', style: _buttonStyle)),
+                onPressed: () {
+                  if (!_operatorList
+                      .any((element) => value.endsWith(element))) {
+                    if (value.isEmpty) {
+                      value += '0';
+                    }
+                    value += '-';
+                    widget.calc!.call(value);
+                  }
+                },
+                child: const Text('-', style: _buttonStyle)),
             TextButton(
                 onPressed: () {
                   value += '1';
@@ -108,12 +158,22 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
                 child: const Text('2', style: _buttonNumberStyle)),
             TextButton(
                 onPressed: () {
-                  value += '7';
+                  value += '3';
                   widget.calc!.call(value);
                 },
                 child: const Text('3', style: _buttonNumberStyle)),
             TextButton(
-                onPressed: () {}, child: const Text('+', style: _buttonStyle)),
+                onPressed: () {
+                  if (!_operatorList
+                      .any((element) => value.endsWith(element))) {
+                    if (value.isEmpty) {
+                      value += '0';
+                    }
+                    value += '+';
+                    widget.calc!.call(value);
+                  }
+                },
+                child: const Text('+', style: _buttonStyle)),
             TextButton(onPressed: () {}, child: const SizedBox.shrink()),
             TextButton(
                 onPressed: () {
@@ -130,7 +190,18 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
                 },
                 child: const Text('.', style: _buttonStyle)),
             TextButton(
-                onPressed: () {}, child: const Text('=', style: _buttonStyle)),
+                onPressed: () {
+                  if (value[0] == '-') {
+                    value = '0' + value;
+                  }
+                  if (value.isNotEmpty) {
+                    _baseCalc.compute(value);
+                    value = _baseCalc.log.last[1];
+                    widget.calc!.call(value);
+                  }
+                  print(_baseCalc.log);
+                },
+                child: const Text('=', style: _buttonStyle)),
           ],
         ),
       ),

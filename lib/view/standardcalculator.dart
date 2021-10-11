@@ -19,10 +19,13 @@ class _StandardCalculatorState extends State<StandardCalculator> {
       drawer: AppDrawer(),
       body: Column(
         children: [
-          Text(_caltext),
+          Text(_caltext,
+              style: const TextStyle(
+                  fontSize: 25,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
           StdCalcBoard(
             calc: (String v) {
-              print(v);
               setState(() {
                 _caltext = v;
               });

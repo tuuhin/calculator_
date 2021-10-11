@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 class BaseCalc {
   List _operands = [];
   List _operations = [];
@@ -10,6 +12,17 @@ class BaseCalc {
   num subtract(String op1, String op2) => num.parse(op1) - num.parse(op2);
   num multiply(String op1, String op2) => num.parse(op1) * num.parse(op2);
   num divide(String op1, String op2) => num.parse(op1) / num.parse(op2);
+  String recripocal(String op) {
+    return (1 / double.parse(op)).toString();
+  }
+
+  String sqrt(String op) {
+    return math.sqrt(double.parse(op)).toString();
+  }
+
+  String pow2(String op) {
+    return math.pow(double.parse(op), 2).toString();
+  }
 
   void logHistory(String header, String message) => log.add([header, message]);
   void clearHistory() {
@@ -24,7 +37,7 @@ class BaseCalc {
     _operations.removeWhere((element) => element.isEmpty);
     _operands.removeWhere((e) => e.isEmpty);
     if (_operands.length == _operations.length) {
-      _operands.add('0');
+      _operations.removeLast();
     }
     print('$_operands, $_operations');
     try {
@@ -83,6 +96,7 @@ class BaseCalc {
         operands.remove(operands[1]);
       } else if (operations[0] == '-') {
         operands[0] = subtract(operands[0], operands[1]).toString();
+
         operations.remove(operations[0]);
         operands.remove(operands[1]);
       }
@@ -92,8 +106,7 @@ class BaseCalc {
 
 void main() {
   BaseCalc calc = BaseCalc();
-  calc.compute('64/16*18+23-15');
-  calc.compute('28*8+35+64-10-12');
-  calc.compute('73-56*5+20+18-19.2');
+
+  calc.compute('0-96-4');
   print(calc.log);
 }
