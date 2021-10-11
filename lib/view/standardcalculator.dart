@@ -11,6 +11,13 @@ class StandardCalculator extends StatefulWidget {
 
 class _StandardCalculatorState extends State<StandardCalculator> {
   String _caltext = '';
+  String removeZero(String str) {
+    if (str.startsWith('0')) {
+      return str.substring(1);
+    } else {
+      return str;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +25,22 @@ class _StandardCalculatorState extends State<StandardCalculator> {
       appBar: AppBar(title: const Text('std calculator')),
       drawer: AppDrawer(),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(_caltext,
-              style: const TextStyle(
-                  fontSize: 25,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold)),
-          StdCalcBoard(
-            calc: (String v) {
-              setState(() {
-                _caltext = v;
-              });
-            },
+          Text(removeZero(_caltext),
+              style:
+                  const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          Column(
+            children: [
+              const Divider(),
+              StdCalcBoard(
+                calc: (String v) {
+                  setState(() {
+                    _caltext = v;
+                  });
+                },
+              ),
+            ],
           )
         ],
       ),

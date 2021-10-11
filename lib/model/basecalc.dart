@@ -12,17 +12,6 @@ class BaseCalc {
   num subtract(String op1, String op2) => num.parse(op1) - num.parse(op2);
   num multiply(String op1, String op2) => num.parse(op1) * num.parse(op2);
   num divide(String op1, String op2) => num.parse(op1) / num.parse(op2);
-  String recripocal(String op) {
-    return (1 / double.parse(op)).toString();
-  }
-
-  String sqrt(String op) {
-    return math.sqrt(double.parse(op)).toString();
-  }
-
-  String pow2(String op) {
-    return math.pow(double.parse(op), 2).toString();
-  }
 
   void logHistory(String header, String message) => log.add([header, message]);
   void clearHistory() {
