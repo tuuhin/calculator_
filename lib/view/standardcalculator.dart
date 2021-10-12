@@ -11,6 +11,7 @@ class StandardCalculator extends StatefulWidget {
 
 class _StandardCalculatorState extends State<StandardCalculator> {
   String _caltext = '';
+  String _expresion = '';
   String removeZero(String str) {
     if (str.startsWith('0')) {
       return str.substring(1);
@@ -27,6 +28,9 @@ class _StandardCalculatorState extends State<StandardCalculator> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Text(removeZero(_expresion),
+              style:
+                  const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
           Text(removeZero(_caltext),
               style:
                   const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
@@ -34,6 +38,11 @@ class _StandardCalculatorState extends State<StandardCalculator> {
             children: [
               const Divider(),
               StdCalcBoard(
+                history: (String h) {
+                  setState(() {
+                    _expresion = h;
+                  });
+                },
                 calc: (String v) {
                   setState(() {
                     _caltext = v;

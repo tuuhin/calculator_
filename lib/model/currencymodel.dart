@@ -15,7 +15,7 @@ class CurrencyModel extends BaseModel {
   Future fetchData() async {
     List<String> _allCodeodes = [];
     String url =
-        'https://v6.exchangerate-api.com/v6/ccb0c6642b3f47506be6c237/latest/INR';
+        'https://v6.exchangerate-api.com/v6/469b97afb8394fc46f3a7672/latest/INR';
     var baseUrl = Uri.parse(url);
     try {
       http.Response _rep = await http.get(baseUrl);

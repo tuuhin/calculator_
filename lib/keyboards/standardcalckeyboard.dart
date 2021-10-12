@@ -37,12 +37,14 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
                   value = '0';
                   widget.calc!.call(value);
                   _baseCalc.clearHistory();
+                  widget.history!.call('');
                 },
                 child: const Text('CE', style: _buttonStyle)),
             TextButton(
                 onPressed: () {
                   value = '0';
                   widget.calc!.call(value);
+                  widget.history!.call('');
                 },
                 child: const Text('C', style: _buttonStyle)),
             TextButton(
@@ -67,7 +69,7 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
             TextButton(
                 onPressed: () {
                   value += '7';
-                  widget.calc!.call(value);
+                  widget.history!.call(value);
                 },
                 child: const Text('7', style: _buttonNumberStyle)),
             TextButton(
@@ -178,6 +180,7 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
                     _baseCalc.compute(value);
                     value = _baseCalc.log.last[1];
                     widget.calc!.call(value);
+                    widget.history!.call(_baseCalc.log.last[0]);
                   }
                   print(_baseCalc.log);
                 },

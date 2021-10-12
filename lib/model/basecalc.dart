@@ -1,13 +1,7 @@
-import 'dart:math' as math;
-
 class BaseCalc {
   List _operands = [];
   List _operations = [];
   List log = [];
-
-  List get operands => _operands;
-  List get operations => _operations;
-
   num add(String op1, String op2) => num.parse(op1) + num.parse(op2);
   num subtract(String op1, String op2) => num.parse(op1) - num.parse(op2);
   num multiply(String op1, String op2) => num.parse(op1) * num.parse(op2);
@@ -91,11 +85,4 @@ class BaseCalc {
       }
     }
   }
-}
-
-void main() {
-  BaseCalc calc = BaseCalc();
-
-  calc.compute('0-96-4');
-  print(calc.log);
 }

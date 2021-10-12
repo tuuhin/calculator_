@@ -1,4 +1,5 @@
 import 'package:calculator/model/model.dart';
+import 'package:calculator/view/standardcalculator.dart';
 import 'package:calculator/view/view.dart';
 import 'package:flutter/material.dart';
 
@@ -36,10 +37,17 @@ class AppDrawer extends StatelessWidget {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ListTile(
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return StandardCalculator();
+                }),
+              );
+            },
             dense: true,
-            title: Text(
-              'Converter',
+            title: const Text(
+              'calculator std',
               style:
                   TextStyle(fontSize: 18, decoration: TextDecoration.underline),
             ),
