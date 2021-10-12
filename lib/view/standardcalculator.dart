@@ -12,8 +12,11 @@ class StandardCalculator extends StatefulWidget {
 class _StandardCalculatorState extends State<StandardCalculator> {
   String _caltext = '';
   String _expresion = '';
+  // List _history = [];
+
+  late ScrollController _scrollController;
   String removeZero(String str) {
-    if (str.startsWith('0')) {
+    if (str.startsWith('0') && str.length > 1) {
       return str.substring(1);
     } else {
       return str;
@@ -21,35 +24,52 @@ class _StandardCalculatorState extends State<StandardCalculator> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _scrollController.addListener(() {
+      print(_scrollController.offset);
+    });
     return Scaffold(
       appBar: AppBar(title: const Text('std calculator')),
       drawer: AppDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(removeZero(_expresion),
-              style:
-                  const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          Text(removeZero(_caltext),
-              style:
-                  const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          Column(
-            children: [
-              const Divider(),
-              StdCalcBoard(
-                history: (String h) {
-                  setState(() {
-                    _expresion = h;
-                  });
-                },
-                calc: (String v) {
-                  setState(() {
-                    _caltext = v;
-                  });
-                },
+      body: CustomScrollView(
+        controller: _scrollController,
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(
+              child: Container(
+            color: Colors.purple,
+            height: MediaQuery.of(context).size.height * 0.75,
+          )),
+          SliverPadding(
+            padding: const EdgeInsets.all(20.0),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    removeZero(_caltext),
+                  ),
+                  const SizedBox(height: 20),
+                  Text('= ' + removeZero(_expresion),
+                      style: const TextStyle(
+                          fontSize: 25, fontWeight: FontWeight.bold)),
+                ],
               ),
-            ],
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                const Divider(),
+                StdCalcBoard(),
+              ],
+            ),
           )
         ],
       ),
