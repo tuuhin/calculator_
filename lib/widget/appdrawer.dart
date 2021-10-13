@@ -38,6 +38,15 @@ class AppDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              leading: const Icon(
+                Icons.menu,
+              )),
+          const ListTile(title: Text('Calculators')),
+          const Divider(),
+          ListTile(
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (BuildContext context) {
@@ -48,14 +57,16 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.calculate),
             dense: true,
             title: const Text(
-              'calculator std',
+              'Standard',
             ),
           ),
+          const ListTile(title: Text('Convertors')),
           const Divider(),
           SizedBox(
             height: 300,
             child: ListView.builder(
                 itemCount: _screens.length,
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int i) {
                   return ListTile(
                     dense: true,
@@ -71,80 +82,20 @@ class AppDrawer extends StatelessWidget {
                   );
                 }),
           ),
-          // ListTile(
-          //   onTap: () {
-          //     Navigator.of(context).pushReplacement(
-          //       MaterialPageRoute(builder: (BuildContext context) {
-          //         return const CurrencyPage();
-          //       }),
-          //     );
-          //   },
-          //   dense: true,
-          //   leading: Icon(Icons.layers),
-          //   title: Text('Currency'),
-          // ),
-          // const Divider(),
-          // ListTile(
-          //     onTap: () {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (BuildContext context) {
-          //           return const VolumePage();
-          //         }),
-          //       );
-          //     },
-          //     dense: true,
-          //     leading: Icon(Icons.view_in_ar_outlined),
-          //     title: const Text('Volume')),
-          // const Divider(),
-          // ListTile(
-          //   onTap: () {
-          //     Navigator.of(context).pushReplacement(
-          //       MaterialPageRoute(builder: (BuildContext context) {
-          //         return const LengthPage();
-          //       }),
-          //     );
-          //   },
-          //   title: const Text('Lenght'),
-          //   dense: true,
-          //   leading: Icon(Icons.straighten),
-          // ),
-          // const Divider(),
-          // TextButton(
-          //     onPressed: () {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (BuildContext context) {
-          //           return const WeightPage();
-          //         }),
-          //       );
-          //     },
-          //     child: const Text('Weight and Mass')),
-          // const Divider(),
-          // TextButton(
-          //     onPressed: () {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (BuildContext context) {
-          //           return const TemperaturePage();
-          //         }),
-          //       );
-          //     },
-          //     child: const Text('Temperature')),
-          // const Divider(),
-          // TextButton(
-          //     onPressed: () {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (BuildContext context) {
-          //           return const EnergyPage();
-          //         }),
-          //       );
-          //     },
-          //     child: const Text('Energy')),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.clear),
             title: const Text('Clear Data'),
+            dense: true,
             onTap: () {
               BaseModel.preferences!.clear();
             },
+          ),
+          const Divider(),
+          const ListTile(
+            dense: true,
+            leading: Icon(Icons.info),
+            title: Text('About'),
           )
         ],
       )),
