@@ -3,7 +3,7 @@ import 'package:math_expressions/math_expressions.dart';
 
 class BaseCalculator {
   static final Parser _par = Parser();
-  static final List<String> _operators = ['+', '-', '*', '\u00f7'];
+  static final List<String> _operators = ['+', '-', '*', '/'];
   List logs = [];
   static final ContextModel _model = ContextModel();
 
@@ -31,11 +31,14 @@ class BaseCalculator {
           _sqrt(calculate(eval.substring(0, eval.length - 1), log: false))
               .toString();
       double? _ans = calculate(eval + _lastOperand, log: false);
-      logs.add({'$eval sqrt(${eval.substring(0, eval.length - 1)})', _ans});
+      logs.add([
+        '$eval sqrt(${eval.substring(0, eval.length - 1)})',
+        _ans.toString()
+      ]);
       return _ans;
     } else {
       double? _ans = _sqrt(calculate(eval, log: false));
-      logs.add({'sqrt($eval)', _ans});
+      logs.add(['sqrt($eval)', _ans.toString()]);
       return _ans;
     }
   }
@@ -50,11 +53,14 @@ class BaseCalculator {
           calculate(eval.substring(0, eval.length - 1) + '^2', log: false)
               .toString();
       double? _ans = calculate(eval + _lastOperand, log: false);
-      logs.add({'$eval sqr(${eval.substring(0, eval.length - 1)})', _ans});
+      logs.add([
+        '$eval sqr(${eval.substring(0, eval.length - 1)})',
+        _ans.toString()
+      ]);
       return _ans;
     } else {
       double? _ans = (calculate('($eval)^2', log: false));
-      logs.add(['sqrt($eval)', _ans]);
+      logs.add(['sqrt($eval)', _ans.toString()]);
       return _ans;
     }
   }
@@ -65,11 +71,14 @@ class BaseCalculator {
           calculate('1/${eval.substring(0, eval.length - 1)}', log: false)
               .toString();
       double? _ans = calculate(eval + _lastOperand, log: false);
-      logs.add({'$eval recp(${eval.substring(0, eval.length - 1)})', _ans});
+      logs.add([
+        '$eval recp(${eval.substring(0, eval.length - 1)})',
+        _ans.toString()
+      ]);
       return _ans;
     } else {
-      double? _ans = (calculate('1/($eval)', log: false));
-      logs.add({'recp($eval)', _ans});
+      double? _ans = calculate('1/($eval)', log: false);
+      logs.add(['recp($eval)', _ans.toString()]);
       return _ans;
     }
   }

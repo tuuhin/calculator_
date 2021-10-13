@@ -27,7 +27,7 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
   }
 
   bool _allowed(String op) {
-    return op == 'Nan' ? true : false;
+    return op == 'NaN' ? true : false;
   }
 
   void valueOnNumber(String op) {
@@ -40,7 +40,7 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: MediaQuery.of(context).size.height * .45,
+      height: MediaQuery.of(context).size.height * .5,
       // color: Colors.blue,
       width: MediaQuery.of(context).size.width,
       child: Padding(
@@ -49,6 +49,52 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
           runSpacing: 15,
           spacing: 15,
           children: [
+            TextButton(
+                onPressed: () {
+                  _calc.getPower(_input);
+                  // print(_calc.logs);
+                  widget.history!.call(_calc.logs);
+                  widget.input!.call(_calc.logs.last[1]);
+                  widget.output!.call(_calc.logs.last[1]);
+                  _input = _calc.logs.last[1];
+                },
+                child: const Text('x\u00b2', style: _buttonStyle)),
+            TextButton(
+                onPressed: () {
+                  _calc.getSqrt(_input);
+                  // print(_calc.logs);
+                  widget.history!.call(_calc.logs);
+                  widget.input!.call(_calc.logs.last[1]);
+                  widget.output!.call(_calc.logs.last[1]);
+                  _input = _calc.logs.last[1];
+                },
+                child: const Text('\u221a', style: _buttonStyle)),
+            TextButton(
+                onPressed: () {
+                  _calc.getInverse(_input);
+                  // print(_calc.logs);
+                  widget.history!.call(_calc.logs);
+                  widget.input!.call(_calc.logs.last[1]);
+                  widget.output!.call(_calc.logs.last[1]);
+                  _input = _calc.logs.last[1];
+                },
+                child: const Text('\u00b1', style: _buttonStyle)),
+            TextButton(
+                onPressed: () {
+                  if (_input != '0' && _input.isNotEmpty) {
+                    print(_input);
+                    _calc.getRecp(_input);
+                    print(_calc.logs);
+                    widget.history!.call(_calc.logs);
+                    widget.input!.call(_calc.logs.last[1]);
+                    widget.output!.call(_calc.logs.last[1]);
+                    _input = _calc.logs.last[1];
+                  } else {
+                    _calc.logs.add(['1/x', 'cant divide by zero']);
+                    widget.history!.call(_calc.logs);
+                  }
+                },
+                child: const Text('1/x', style: _buttonStyle)),
             TextButton(
                 onPressed: () {
                   _input = '';
