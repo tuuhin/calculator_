@@ -1,6 +1,5 @@
 import 'package:calculator/model/model.dart';
 import 'package:calculator/view/standardcalculator.dart';
-import 'package:calculator/view/view.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -8,13 +7,9 @@ void main() async {
   await BaseModel.init();
   if (BaseModel.getKeys()) {
     await BaseModel.setdata();
-    print('set nw data');
   }
   if (CurrencyModel.keycheck() == null) {
     await CurrencyModel().fetchData();
-    print('added data');
-  } else {
-    print('data abpsent');
   }
 
   runApp(const MyApp());
