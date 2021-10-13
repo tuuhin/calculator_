@@ -19,7 +19,7 @@ class CurrencyModel extends BaseModel {
     var baseUrl = Uri.parse(url);
     try {
       http.Response _rep = await http.get(baseUrl);
-      print(_rep.body);
+
       Map decodeResponse = jsonDecode(_rep.body)['conversion_rates'];
       String lastUpdateUtc = jsonDecode(_rep.body)['time_last_update_utc'];
       decodeResponse.forEach((key, value) async {
@@ -28,8 +28,6 @@ class CurrencyModel extends BaseModel {
       });
       await preferences!.setStringList('country-code', _allCodeodes);
       await preferences!.setString('update-at-utc', lastUpdateUtc);
-
-      print('done');
     } on SocketException {
       return 'socket-error';
     } catch (e) {
