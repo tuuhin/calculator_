@@ -10,10 +10,6 @@ class StandardCalculator extends StatefulWidget {
 }
 
 class _StandardCalculatorState extends State<StandardCalculator> {
-  String _caltext = '';
-  String _expresion = '';
-  // List _history = [];
-
   late ScrollController _scrollController;
   String removeZero(String str) {
     if (str.startsWith('0') && str.length > 1) {
@@ -29,23 +25,46 @@ class _StandardCalculatorState extends State<StandardCalculator> {
     _scrollController = ScrollController();
   }
 
+  String _input = '';
+  String _outputs = '';
+  List _logs = [];
+  bool zoomedInput = true;
+  bool zoomedOutput = false;
+
   @override
   Widget build(BuildContext context) {
-    _scrollController.addListener(() {
-      print(_scrollController.offset);
-    });
     return Scaffold(
       appBar: AppBar(title: const Text('std calculator')),
       drawer: AppDrawer(),
       body: CustomScrollView(
         controller: _scrollController,
-        physics: const BouncingScrollPhysics(),
+        // physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
               child: Container(
-            color: Colors.purple,
-            height: MediaQuery.of(context).size.height * 0.75,
-          )),
+                  color: Colors.grey[200],
+                  height: _logs.length <= 8
+                      ? MediaQuery.of(context).size.height * 0.75
+                      : null,
+                  child: _logs.isNotEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.only(bottom: 20, right: 10),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: _logs
+                                  .map((e) => Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10),
+                                        child: Text('${e[0]}\n= ${e[1]}',
+                                            style: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w700)),
+                                      ))
+                                  .toList()),
+                        )
+                      : const SizedBox.shrink())),
           SliverPadding(
             padding: const EdgeInsets.all(20.0),
             sliver: SliverToBoxAdapter(
@@ -53,10 +72,14 @@ class _StandardCalculatorState extends State<StandardCalculator> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    removeZero(_caltext),
+                    _input != '' ? _input : '0',
+                    style: zoomedInput
+                        ? const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)
+                        : TextStyle(),
                   ),
                   const SizedBox(height: 20),
-                  Text('= ' + removeZero(_expresion),
+                  Text(_outputs != '' ? '= ' + _outputs : '0',
                       style: const TextStyle(
                           fontSize: 25, fontWeight: FontWeight.bold)),
                 ],
@@ -67,7 +90,25 @@ class _StandardCalculatorState extends State<StandardCalculator> {
             child: Column(
               children: [
                 const Divider(),
-                StdCalcBoard(),
+                StdCalcBoard(
+                  output: (output) {
+                    setState(() {
+                      _outputs = output;
+                      // zoomedInput = false;
+                    });
+                  },
+                  history: (logs) {
+                    setState(() {
+                      _logs = logs;
+                    });
+                  },
+                  input: (input) {
+                    setState(() {
+                      _input = input;
+                      // zoomedInput = true;
+                    });
+                  },
+                ),
               ],
             ),
           )
