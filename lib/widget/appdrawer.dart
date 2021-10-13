@@ -41,17 +41,17 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (BuildContext context) {
-                  return StandardCalculator();
+                  return const StandardCalculator();
                 }),
               );
             },
+            leading: const Icon(Icons.calculate),
             dense: true,
             title: const Text(
               'calculator std',
-              style:
-                  TextStyle(fontSize: 18, decoration: TextDecoration.underline),
             ),
           ),
+          const Divider(),
           SizedBox(
             height: 300,
             child: ListView.builder(
