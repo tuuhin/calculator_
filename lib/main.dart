@@ -25,11 +25,9 @@ class MyApp extends StatelessWidget {
         title: 'Converter',
         debugShowCheckedModeBanner: false,
         darkTheme: ThemeData(
-          colorScheme: ColorScheme.highContrastDark(),
+          colorScheme: ColorScheme.dark(),
         ),
-        theme: ThemeData(
-          colorScheme: ColorScheme.highContrastLight(),
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue),
         home: const StandardCalculator());
   }
 }
