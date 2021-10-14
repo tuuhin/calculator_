@@ -1,5 +1,6 @@
 import 'package:calculator/model/model.dart';
 import 'package:calculator/view/standardcalculator.dart';
+import 'package:calculator/widget/pallette.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -24,10 +25,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Converter',
         debugShowCheckedModeBanner: false,
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.dark(),
-        ),
-        theme: ThemeData(primarySwatch: Colors.blue),
+        darkTheme: Palette.darkTheme,
+        theme: Palette.lightTheme,
         home: const StandardCalculator());
   }
 }
