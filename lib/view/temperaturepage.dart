@@ -25,6 +25,12 @@ class _TemperaturePageState extends State<TemperaturePage> {
     _to = temperatureData![1];
   }
 
+  final List<String> _formulas = [
+    '\u00b0C = 5/9 * ( \u00b0F - 32 )',
+    '\u00b0K = \u00b0C + 273.15',
+    '\u00b0F = 9/5 * \u00b0F + 32'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,49 +47,130 @@ class _TemperaturePageState extends State<TemperaturePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  DropdownButton(
-                    menuMaxHeight: MediaQuery.of(context).size.width * 0.7,
-                    value: _from,
-                    items: temperatureData!
-                        .map<DropdownMenuItem<String>>(
-                            (String v) => DropdownMenuItem(
-                                  value: v,
-                                  alignment: Alignment.center,
-                                  child: Text(v),
-                                ))
-                        .toList(),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _from = value ?? _from;
-                      });
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('\u00b0' + _from[0],
+                          style: Theme.of(context).textTheme.headline4),
+                      Column(
+                        children: [
+                          DropdownButton(
+                            menuMaxHeight:
+                                MediaQuery.of(context).size.width * 0.7,
+                            value: _from,
+                            items: temperatureData!
+                                .map<DropdownMenuItem<String>>(
+                                    (String v) => DropdownMenuItem(
+                                          value: v,
+                                          alignment: Alignment.center,
+                                          child: Text(v),
+                                        ))
+                                .toList(),
+                            onChanged: (String? value) {
+                              setState(() {
+                                _from = value ?? _from;
+                              });
+                            },
+                          ),
+                          Text(
+                            '${_model.prevData}',
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  Text(
-                    '${_model.prevData}',
-                    style: Palette.largetext,
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('\u00b0' + _to[0],
+                          style: Theme.of(context).textTheme.headline4),
+                      Column(
+                        children: [
+                          DropdownButton(
+                            menuMaxHeight:
+                                MediaQuery.of(context).size.width * 0.7,
+                            value: _to,
+                            items: temperatureData!
+                                .map<DropdownMenuItem<String>>(
+                                    (String v) => DropdownMenuItem(
+                                          value: v,
+                                          alignment: Alignment.center,
+                                          child: Text(v),
+                                        ))
+                                .toList(),
+                            onChanged: (String? value) {
+                              setState(() {
+                                _to = value ?? _to;
+                              });
+                            },
+                          ),
+                          Text(
+                            _model.convertTemp(_from, _to).toStringAsFixed(2),
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 40),
-                  DropdownButton(
-                    menuMaxHeight: MediaQuery.of(context).size.width * 0.7,
-                    value: _to,
-                    items: temperatureData!
-                        .map<DropdownMenuItem<String>>(
-                            (String v) => DropdownMenuItem(
-                                  value: v,
-                                  alignment: Alignment.center,
-                                  child: Text(v),
-                                ))
-                        .toList(),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _to = value ?? _to;
-                      });
-                    },
-                  ),
-                  Text(
-                    _model.convertTemp(_from, _to).toStringAsFixed(2),
-                    style: Palette.largetext,
-                  )
+                  const Divider(),
+                  Container(
+                      height: 100,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Formula for conversion',
+                              style: Theme.of(context).textTheme.subtitle1),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: _formulas.map((e) {
+                                    return Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 4, 0, 0),
+                                      child: Text(e,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2),
+                                    );
+                                  }).toList()),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text('About equal to',
+                                      style:
+                                          Theme.of(context).textTheme.caption),
+                                  Text(
+                                    _from == 'Kelvin'
+                                        ? _model
+                                                .convertTemp(_from, 'Celcius')
+                                                .toStringAsFixed(2) +
+                                            '\u00b0C'
+                                        : _model
+                                                .convertTemp(_from, 'Kelvin')
+                                                .toStringAsFixed(2) +
+                                            '\u00b0K',
+                                    style: TextStyle(
+                                        fontSize: Theme.of(context)
+                                            .textTheme
+                                            .headline5!
+                                            .fontSize,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .headline4!
+                                            .color),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ))
                 ],
               ),
             ),
@@ -94,7 +181,6 @@ class _TemperaturePageState extends State<TemperaturePage> {
                   plusMinus: true,
                   getData: (String data) {
                     setState(() {
-                      print(data);
                       _model.newData = num.parse(data);
                     });
                   },
