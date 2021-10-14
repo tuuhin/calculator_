@@ -60,6 +60,20 @@ class AppDrawer extends StatelessWidget {
               'Standard',
             ),
           ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return const ScientificCalculator();
+                }),
+              );
+            },
+            leading: const Icon(Icons.science),
+            dense: true,
+            title: const Text(
+              'Scientific',
+            ),
+          ),
           const ListTile(title: Text('Convertors')),
           const Divider(),
           SizedBox(
@@ -94,8 +108,8 @@ class AppDrawer extends StatelessWidget {
           const Divider(),
           const ListTile(
             dense: true,
-            leading: Icon(Icons.info),
-            title: Text('About'),
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
           )
         ],
       )),
