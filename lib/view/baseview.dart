@@ -86,18 +86,23 @@ class _BaseViewState extends State<BaseView> {
                   Text(
                     (widget.initialValue *
                             widget.model!.convert(widget.from, widget.to))
-                        .toStringAsFixed(4),
+                        .toString(),
                     style: Palette.largetext,
                   )
                 ],
               ),
             ),
-            NumberBoard(
-              getData: (String data) {
-                setState(() {
-                  widget.initialValue = double.parse(data);
-                });
-              },
+            Column(
+              children: [
+                const Divider(),
+                NumberBoard(
+                  getData: (String data) {
+                    setState(() {
+                      widget.initialValue = double.parse(data);
+                    });
+                  },
+                ),
+              ],
             )
           ],
         ),

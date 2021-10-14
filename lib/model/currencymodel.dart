@@ -12,7 +12,7 @@ class CurrencyModel extends BaseModel {
     return preferences!.getDouble('INR');
   }
 
-  Future fetchData() async {
+  Future<bool> fetchData() async {
     List<String> _allCodeodes = [];
     String url =
         'https://v6.exchangerate-api.com/v6/469b97afb8394fc46f3a7672/latest/INR';
@@ -28,10 +28,11 @@ class CurrencyModel extends BaseModel {
       });
       await preferences!.setStringList('country-code', _allCodeodes);
       await preferences!.setString('update-at-utc', lastUpdateUtc);
+      return true;
     } on SocketException {
-      return 'socket-error';
+      return false;
     } catch (e) {
-      print(e.toString());
+      return false;
     }
   }
 
@@ -47,7 +48,7 @@ class CurrencyModel extends BaseModel {
     return preferences!.getStringList('country-code');
   }
 
-  getLastUpdateTime() {
+  String? getLastUpdateTime() {
     return preferences!.getString('update-at-utc');
   }
 }

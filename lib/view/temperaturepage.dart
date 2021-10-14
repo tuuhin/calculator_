@@ -81,18 +81,25 @@ class _TemperaturePageState extends State<TemperaturePage> {
                     },
                   ),
                   Text(
-                    _model.convert(_from, _to).toStringAsFixed(2),
+                    _model.convertTemp(_from, _to).toStringAsFixed(2),
                     style: Palette.largetext,
                   )
                 ],
               ),
             ),
-            NumberBoard(
-              getData: (String data) {
-                setState(() {
-                  _model.newData = double.parse(data);
-                });
-              },
+            Column(
+              children: [
+                const Divider(),
+                NumberBoard(
+                  plusMinus: true,
+                  getData: (String data) {
+                    setState(() {
+                      print(data);
+                      _model.newData = num.parse(data);
+                    });
+                  },
+                ),
+              ],
             )
           ],
         ),

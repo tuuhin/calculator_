@@ -1,18 +1,25 @@
 import 'package:calculator/widget/widget.dart';
 import 'package:calculator/widget/widgetdecorator.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+// import 'package:flutter/painting.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class NumberBoard extends StatefulWidget {
   final ValueChanged<String>? getData;
-  const NumberBoard({Key? key, this.getData}) : super(key: key);
+  final bool? plusMinus;
+  const NumberBoard({Key? key, this.getData, this.plusMinus}) : super(key: key);
 
   @override
   State<NumberBoard> createState() => _NumberBoardState();
 }
 
 class _NumberBoardState extends State<NumberBoard> {
+  num getnegative(String eval) {
+    Expression _exp = Parser().parse(eval + '*-1');
+    return _exp.evaluate(EvaluationType.REAL, ContextModel());
+  }
+
   static const _numberButtonStyle =
       TextStyle(fontWeight: FontWeight.w700, fontSize: 30);
   String keyvalue = '';
@@ -114,9 +121,19 @@ class _NumberBoardState extends State<NumberBoard> {
                       style: Palette.largetext,
                     )),
                 TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      ' ',
+                    onPressed: () {
+                      if (widget.plusMinus != null &&
+                          widget.plusMinus == true &&
+                          keyvalue != '0') {
+                        print(getnegative(keyvalue));
+                        keyvalue = getnegative(keyvalue).toString();
+                        widget.getData!.call(keyvalue);
+                      }
+                    },
+                    child: Text(
+                      (widget.plusMinus != null && widget.plusMinus == true)
+                          ? '+-'
+                          : '',
                       style: Palette.largetext,
                     )),
                 TextButton(

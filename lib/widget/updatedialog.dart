@@ -28,8 +28,15 @@ class _UpdateDialogState extends State<UpdateDialog> {
                     setState(() {
                       _started = true;
                     });
-                    await CurrencyModel().fetchData();
-                    await Future.delayed(const Duration(seconds: 1));
+                    bool _update = await CurrencyModel().fetchData();
+                    if (_update) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Rates updated')));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Rates failed to updated')));
+                    }
+                    // await Future.delayed(const Duration(seconds: 1));
                     setState(() {
                       _started = false;
                     });

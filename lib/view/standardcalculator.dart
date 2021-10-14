@@ -36,8 +36,8 @@ class _StandardCalculatorState extends State<StandardCalculator> {
           SliverToBoxAdapter(
               child: Container(
                   color: Colors.grey[200],
-                  height: _logs.length <= 8
-                      ? MediaQuery.of(context).size.height * 0.75
+                  height: _logs.length <= 2
+                      ? MediaQuery.of(context).size.height * 0.22
                       : null,
                   child: _logs.isNotEmpty
                       ? Padding(

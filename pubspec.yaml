@@ -52,6 +52,7 @@ dev_dependencies:
   connectivity: ^3.0.6
   font_awesome_flutter: ^9.1.0
   math_expressions: ^2.2.0
+  intl: ^0.17.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

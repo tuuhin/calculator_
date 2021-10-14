@@ -4,34 +4,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TemperatureModel extends BaseModel {
   static final SharedPreferences? preferences = BaseModel.preferences;
 
-  double _prevData = 0.0;
+  num _prevData = 0;
 
-  double get prevData {
+  num get prevData {
     return _prevData;
   }
 
-  set newData(double newdata) {
+  set newData(num newdata) {
     _prevData = newdata;
   }
 
-  double _convertC2F(double value) {
+  num _convertC2F(num value) {
     return 9 / 5 * value + 32;
   }
 
-  double _convertF2C(double value) {
+  num _convertF2C(num value) {
     return 5 / 9 * (value - 32);
   }
 
-  double _convertC2K(double value) {
+  num _convertC2K(num value) {
     return value + 273.15;
   }
 
-  double _convertK2C(double value) {
+  num _convertK2C(num value) {
     return value - 273.15;
   }
 
-  double _setnewTemp(String from, String to) {
-    double _return = 0.0;
+  num _setnewTemp(String from, String to) {
+    num _return = 0.0;
     if (from == to) {
       _return = _prevData;
     } else if (from == 'Celcius' && to == 'Farenheit') {
@@ -50,8 +50,7 @@ class TemperatureModel extends BaseModel {
     return _return;
   }
 
-  @override
-  double convert(String from, String to) {
+  num convertTemp(String from, String to) {
     return _setnewTemp(from, to);
   }
 

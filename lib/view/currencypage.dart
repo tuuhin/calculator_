@@ -4,6 +4,7 @@ import 'package:calculator/widget/fetchwidget.dart';
 import 'package:calculator/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:connectivity/connectivity.dart';
 
 class CurrencyPage extends StatefulWidget {
   const CurrencyPage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
     super.initState();
     _model = CurrencyModel();
     countrycode = _model.getAllCountryName();
-    print(countrycode);
+    // print(countrycode);
     if (countrycode != null) {
       fromCode = countrycode![0];
       toCode1 = countrycode![0];
@@ -146,8 +147,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
                       ),
                       const SizedBox(height: 10),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         width: MediaQuery.of(context).size.width,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,17 +170,35 @@ class _CurrencyPageState extends State<CurrencyPage> {
                               height: 8,
                             ),
                             Text(
-                                'Last Updated At :${_model.getLastUpdateTime()}'),
-                            TextButton(
-                              onPressed: () async {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return const UpdateDialog();
-                                    });
-                              },
-                              child: const Text('Update Rates'),
-                            )
+                                'Last Updated At :  ${_model.getLastUpdateTime()!.substring(0, 17)}'),
+                            StreamBuilder(
+                                stream: Connectivity().onConnectivityChanged,
+                                builder:
+                                    (BuildContext context, AsyncSnapshot snap) {
+                                  // print(snap.data);
+                                  if (snap.data == ConnectivityResult.none) {
+                                    return const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      child: Text.rich(TextSpan(
+                                          text: 'Offline please check your  ',
+                                          children: [
+                                            TextSpan(text: 'Netwrok Settings')
+                                          ])),
+                                    );
+                                  } else {
+                                    return TextButton(
+                                      onPressed: () async {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return const UpdateDialog();
+                                            });
+                                      },
+                                      child: const Text('Update Rates'),
+                                    );
+                                  }
+                                }),
                           ],
                         ),
                       ),
@@ -190,7 +208,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
                     children: [
                       const Divider(),
                       NumberBoard(getData: (String v) {
-                        print(v);
+                        // print(v);
                         setState(() {
                           input = double.parse(v);
                         });
