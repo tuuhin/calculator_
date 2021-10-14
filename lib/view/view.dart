@@ -5,3 +5,5 @@ export 'weightpage.dart';
 export 'temperaturepage.dart';
 export 'energypage.dart';
 export 'baseview.dart';
+export 'standardcalculator.dart';
+export 'scienticcalculator.dart';

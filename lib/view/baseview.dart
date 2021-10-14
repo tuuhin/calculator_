@@ -10,10 +10,12 @@ class BaseView extends StatefulWidget {
   String to;
   final String appBarTitle;
   final List<String>? initialaData;
+  final Widget? about;
   // double Function (String, String) convert;
   BaseView(
       {Key? key,
       this.model,
+      this.about,
       required this.appBarTitle,
       required this.initialValue,
       required this.from,
@@ -63,9 +65,9 @@ class _BaseViewState extends State<BaseView> {
                   ),
                   Text(
                     '${widget.initialValue}',
-                    style: Palette.largetext,
+                    style: Theme.of(context).textTheme.headline4,
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 30),
                   DropdownButton(
                     menuMaxHeight: MediaQuery.of(context).size.width * 0.7,
                     value: widget.to,
@@ -87,7 +89,18 @@ class _BaseViewState extends State<BaseView> {
                     (widget.initialValue *
                             widget.model!.convert(widget.from, widget.to))
                         .toString(),
-                    style: Palette.largetext,
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  Column(
+                    children: [
+                      const Divider(),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 100,
+                        color: Colors.purple,
+                        child: widget.about,
+                      )
+                    ],
                   )
                 ],
               ),

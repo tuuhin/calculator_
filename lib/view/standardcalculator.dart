@@ -21,8 +21,6 @@ class _StandardCalculatorState extends State<StandardCalculator> {
   String _input = '';
   String _outputs = '';
   List _logs = [];
-  bool zoomedInput = true;
-  bool zoomedOutput = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +33,9 @@ class _StandardCalculatorState extends State<StandardCalculator> {
         slivers: [
           SliverToBoxAdapter(
               child: Container(
-                  color: Colors.grey[200],
-                  height: _logs.length <= 2
-                      ? MediaQuery.of(context).size.height * 0.22
+                  color: Theme.of(context).cardColor,
+                  height: _logs.length <= 8
+                      ? MediaQuery.of(context).size.height * 0.72
                       : null,
                   child: _logs.isNotEmpty
                       ? Padding(
@@ -50,31 +48,24 @@ class _StandardCalculatorState extends State<StandardCalculator> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 10),
                                         child: Text('${e[0]}\n= ${e[1]}',
-                                            style: const TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w700)),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6),
                                       ))
                                   .toList()),
                         )
                       : const SizedBox.shrink())),
           SliverPadding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             sliver: SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    _input != '' ? _input : '0',
-                    style: zoomedInput
-                        ? const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)
-                        : TextStyle(),
-                  ),
+                  Text(_input != '' ? _input : '0',
+                      style: Theme.of(context).textTheme.headline5),
                   const SizedBox(height: 20),
                   Text(_outputs != '' ? '= ' + _outputs : '0',
-                      style: const TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold)),
+                      style: Theme.of(context).textTheme.headline4),
                 ],
               ),
             ),
@@ -87,7 +78,6 @@ class _StandardCalculatorState extends State<StandardCalculator> {
                   output: (output) {
                     setState(() {
                       _outputs = output;
-                      // zoomedInput = false;
                     });
                   },
                   history: (logs) {
@@ -98,7 +88,6 @@ class _StandardCalculatorState extends State<StandardCalculator> {
                   input: (input) {
                     setState(() {
                       _input = input;
-                      // zoomedInput = true;
                     });
                   },
                 ),

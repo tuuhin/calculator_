@@ -1,8 +1,4 @@
-import 'package:calculator/widget/widget.dart';
-import 'package:calculator/widget/widgetdecorator.dart';
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/painting.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class NumberBoard extends StatefulWidget {
@@ -20,12 +16,15 @@ class _NumberBoardState extends State<NumberBoard> {
     return _exp.evaluate(EvaluationType.REAL, ContextModel());
   }
 
-  static const _numberButtonStyle =
-      TextStyle(fontWeight: FontWeight.w700, fontSize: 30);
   String keyvalue = '';
 
   @override
   Widget build(BuildContext context) {
+    TextStyle? _buttonNumber = Theme.of(context).textTheme.headline4;
+    TextStyle? _elevatedButtonStyle = TextStyle(
+        fontSize: Theme.of(context).textTheme.headline5!.fontSize,
+        color: Theme.of(context).scaffoldBackgroundColor);
+
     return Row(
       children: [
         SizedBox(
@@ -36,89 +35,89 @@ class _NumberBoardState extends State<NumberBoard> {
             padding: const EdgeInsets.all(10.0),
             child: Wrap(
               alignment: WrapAlignment.center,
-              spacing: 18,
-              runSpacing: 18,
+              spacing: 10,
+              runSpacing: 10,
               children: [
                 TextButton(
                     onPressed: () {
                       keyvalue += '1';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '1',
-                      style: _numberButtonStyle,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '2';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '2',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '3';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '3',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '4';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '4',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '5';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '5',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '6';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '6',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '7';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '7',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '8';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '8',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '9';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '9',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
@@ -132,18 +131,18 @@ class _NumberBoardState extends State<NumberBoard> {
                     },
                     child: Text(
                       (widget.plusMinus != null && widget.plusMinus == true)
-                          ? '+-'
+                          ? '\u00b1'
                           : '',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
                       keyvalue += '0';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text(
+                    child: Text(
                       '0',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
                 TextButton(
                     onPressed: () {
@@ -152,9 +151,9 @@ class _NumberBoardState extends State<NumberBoard> {
                         widget.getData!.call(keyvalue);
                       }
                     },
-                    child: const Text(
+                    child: Text(
                       '.',
-                      style: Palette.largetext,
+                      style: _buttonNumber,
                     )),
               ],
             ),
@@ -172,12 +171,10 @@ class _NumberBoardState extends State<NumberBoard> {
                       keyvalue = '0';
                       widget.getData!.call(keyvalue);
                     },
-                    child: const Text('CE'),
+                    child: Text('C', style: _elevatedButtonStyle),
                     style: ElevatedButton.styleFrom(
                         fixedSize: Size(
-                      50,
-                      MediaQuery.of(context).size.height * 0.17,
-                    )),
+                            50, MediaQuery.of(context).size.height * 0.17)),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -186,12 +183,10 @@ class _NumberBoardState extends State<NumberBoard> {
                         widget.getData!.call(keyvalue);
                       }
                     },
-                    child: const Text('X'),
+                    child: Text('X', style: _elevatedButtonStyle),
                     style: ElevatedButton.styleFrom(
                         fixedSize: Size(
-                      50,
-                      MediaQuery.of(context).size.height * 0.17,
-                    )),
+                            50, MediaQuery.of(context).size.height * 0.17)),
                   ),
                 ]),
           ),
