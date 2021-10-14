@@ -11,13 +11,6 @@ class StandardCalculator extends StatefulWidget {
 
 class _StandardCalculatorState extends State<StandardCalculator> {
   late ScrollController _scrollController;
-  String removeZero(String str) {
-    if (str.startsWith('0') && str.length > 1) {
-      return str.substring(1);
-    } else {
-      return str;
-    }
-  }
 
   @override
   void initState() {
@@ -34,7 +27,7 @@ class _StandardCalculatorState extends State<StandardCalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('std calculator')),
+      appBar: AppBar(title: const Text('Standard')),
       drawer: AppDrawer(),
       body: CustomScrollView(
         controller: _scrollController,
