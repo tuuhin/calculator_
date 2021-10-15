@@ -1,4 +1,5 @@
 import 'package:calculator/model/model.dart';
+import 'package:calculator/view/settings.dart';
 import 'package:calculator/view/standardcalculator.dart';
 import 'package:calculator/view/view.dart';
 import 'package:flutter/material.dart';
@@ -77,10 +78,9 @@ class AppDrawer extends StatelessWidget {
           const ListTile(title: Text('Convertors')),
           const Divider(),
           SizedBox(
-            height: 300,
+            height: MediaQuery.of(context).size.height * 0.45,
             child: ListView.builder(
                 itemCount: _screens.length,
-                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int i) {
                   return ListTile(
                     dense: true,
@@ -97,10 +97,17 @@ class AppDrawer extends StatelessWidget {
                 }),
           ),
           const Divider(),
-          const ListTile(
+          ListTile(
             dense: true,
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return const SettingsPage();
+                }),
+              );
+            },
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
           )
         ],
       )),
