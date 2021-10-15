@@ -39,11 +39,6 @@ class _CurrencyPageState extends State<CurrencyPage> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -150,27 +145,47 @@ class _CurrencyPageState extends State<CurrencyPage> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         width: MediaQuery.of(context).size.width,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text('Exchange Rates',
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline)),
-                            const SizedBox(
-                              height: 5,
-                            ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text('1 $fromCode = $value1 $toCode1'),
-                                Text('1 $fromCode = $value2 $toCode2'),
+                                Column(
+                                  children: [
+                                    Text('Exchange Rates',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '1 $fromCode = $value1 $toCode1',
+                                        ),
+                                        Text('1 $fromCode = $value2 $toCode2'),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const VerticalDivider(),
+                                Column(
+                                  children: [
+                                    Text('Last updated At : ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6),
+                                    const SizedBox(height: 5),
+                                    Text(_model
+                                        .getLastUpdateTime()!
+                                        .substring(0, 17))
+                                  ],
+                                ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                                'Last Updated At :  ${_model.getLastUpdateTime()!.substring(0, 17)}'),
                             StreamBuilder(
                                 stream: Connectivity().onConnectivityChanged,
                                 builder:
@@ -195,7 +210,12 @@ class _CurrencyPageState extends State<CurrencyPage> {
                                               return const UpdateDialog();
                                             });
                                       },
-                                      child: const Text('Update Rates'),
+                                      child: Text('Update Rates',
+                                          style: TextStyle(
+                                              fontSize: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6!
+                                                  .fontSize)),
                                     );
                                   }
                                 }),

@@ -38,8 +38,8 @@ class _VolumePageState extends State<VolumePage> {
       siUnitsuffix: 'l',
       commonUnitsuffix: 'gall',
       commonUnit: _to,
-      defination: 'Volume defination',
-      formulas: const ['1  J = 0.001 KJ', ' 1J = 4.18 cal'],
+      defination: 'Volume is the total amount of space covered by an object',
+      formulas: const ['1 L = 1m\u00b3', ' 1L = .26 gallons(US)'],
     );
   }
 }

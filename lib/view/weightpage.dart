@@ -38,7 +38,8 @@ class _WeightPageState extends State<WeightPage> {
       siUnitsuffix: 'kg',
       commonUnitsuffix: 'pd',
       commonUnit: _to,
-      defination: 'deff ..',
+      defination:
+          'Mass is the amount of matter contain in a body.Weight is the relative mass of the body',
       formulas: const ['1  J = 0.001 KJ', ' 1J = 4.18 cal'],
     );
   }

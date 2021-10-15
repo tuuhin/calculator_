@@ -38,8 +38,11 @@ class _LengthPageState extends State<LengthPage> {
       siUnitsuffix: 'm',
       commonUnitsuffix: 'In',
       commonUnit: _to,
-      defination: 'Length is the distance between ..',
-      formulas: const ['1  J = 0.001 KJ', ' 1J = 4.18 cal'],
+      defination: 'Length is the distance between the two points...',
+      formulas: const [
+        '1 m = 39.4 Inches',
+        ' 1 m = 1.09 yards',
+      ],
     );
   }
 }

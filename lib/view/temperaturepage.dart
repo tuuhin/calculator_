@@ -116,57 +116,76 @@ class _TemperaturePageState extends State<TemperaturePage> {
                   ),
                   const Divider(),
                   Container(
-                      height: 100,
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      // height: 100,
+                      // padding: const EdgeInsets.symmetric(vertical: 10),
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Formula for conversion',
-                              style: Theme.of(context).textTheme.subtitle1),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Text.rich(TextSpan(
+                              text: 'Defination: ',
+                              style: Theme.of(context).textTheme.bodyText1,
+                              children: [
+                                TextSpan(
+                                    text:
+                                        'The degree or intensity of heat present in the substance',
+                                    style: Theme.of(context).textTheme.caption)
+                              ])),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: _formulas.map((e) {
-                                    return Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 4, 0, 0),
-                                      child: Text(e,
+                              Text('Formula for conversion',
+                                  style: Theme.of(context).textTheme.bodyText1),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: _formulas.map((e) {
+                                          return Text(e,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2);
+                                        }).toList()),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text('About equal to',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText2),
-                                    );
-                                  }).toList()),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text('About equal to',
-                                      style:
-                                          Theme.of(context).textTheme.caption),
-                                  Text(
-                                    _from == 'Kelvin'
-                                        ? _model
-                                                .convertTemp(_from, 'Celcius')
-                                                .toStringAsFixed(2) +
-                                            '\u00b0C'
-                                        : _model
-                                                .convertTemp(_from, 'Kelvin')
-                                                .toStringAsFixed(2) +
-                                            '\u00b0K',
-                                    style: TextStyle(
-                                        fontSize: Theme.of(context)
-                                            .textTheme
-                                            .headline5!
-                                            .fontSize,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .headline4!
-                                            .color),
+                                              .caption),
+                                      Text(
+                                        _from == 'Kelvin'
+                                            ? _model
+                                                    .convertTemp(
+                                                        _from, 'Celcius')
+                                                    .toStringAsFixed(2) +
+                                                '\u00b0C'
+                                            : _model
+                                                    .convertTemp(
+                                                        _from, 'Kelvin')
+                                                    .toStringAsFixed(2) +
+                                                '\u00b0K',
+                                        style: TextStyle(
+                                            fontSize: Theme.of(context)
+                                                .textTheme
+                                                .headline5!
+                                                .fontSize,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .headline4!
+                                                .color),
+                                      )
+                                    ],
                                   )
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ],

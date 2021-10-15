@@ -99,7 +99,7 @@ class _BaseViewState extends State<BaseView> {
                   Text(
                     (widget.initialValue *
                             widget.model!.convert(widget.from, widget.to))
-                        .toStringAsPrecision(5),
+                        .toStringAsPrecision(4),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   Column(
@@ -109,30 +109,40 @@ class _BaseViewState extends State<BaseView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // const SizedBox(height: 2),
-                          Text(widget.defination ?? '',
-                              style: Theme.of(context).textTheme.subtitle1),
-                          const SizedBox(height: 2),
+                          Text.rich(TextSpan(
+                              text: 'Defination: ',
+                              style: Theme.of(context).textTheme.bodyText1,
+                              children: [
+                                TextSpan(
+                                    text: widget.defination ?? '',
+                                    style: Theme.of(context).textTheme.caption)
+                              ])),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Column(children: [
-                                Text('Important conversions',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1),
-                                Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: widget.formulas!
-                                        .map((e) => Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10,
-                                                      vertical: 2),
-                                              child: Text(e),
-                                            ))
-                                        .toList())
-                              ]),
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Important conversions: ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: widget.formulas!
+                                              .map((e) => Text(e,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2))
+                                              .toList()),
+                                    )
+                                  ]),
                               Container(
                                 padding: const EdgeInsets.all(1),
                                 child: InfoContainer(
