@@ -20,7 +20,8 @@ class _UpdateDialogState extends State<UpdateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(!_started ? 'Update Rates' : 'Updating'),
+      title: Text(!_started ? 'Update Rates' : 'Updating',
+          style: Theme.of(context).textTheme.headline5),
       actions: !_started
           ? [
               TextButton(
@@ -37,17 +38,18 @@ class _UpdateDialogState extends State<UpdateDialog> {
                           content: Text('Rates failed to updated')));
                     }
                     // await Future.delayed(const Duration(seconds: 1));
-                    setState(() {
-                      _started = false;
-                    });
-                    // Navigator.of(context).pop();
+
+                    Navigator.of(context).pop();
                   },
                   child: const Text('Update'))
             ]
           : [],
-      content: Text(!_started
-          ? 'Click Update to update the rates ,this process recuires the mobiule data so make sure it\'s turned on'
-          : 'Updating the rates of the currency conversion..'),
+      content: Text(
+        !_started
+            ? 'Click Update to update the rates ,this process recuires the mobiule data so make sure it\'s turned on'
+            : 'Updating the rates of the currency conversion..',
+        style: Theme.of(context).textTheme.bodyText2,
+      ),
     );
   }
 }
