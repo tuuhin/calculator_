@@ -12,7 +12,10 @@ class ScientificCalculator extends StatelessWidget {
       drawer: AppDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text('hellow world'), ScientificBoard()],
+        children: const [
+          Text('left open for further planning'),
+          ScientificBoard()
+        ],
       ),
     );
   }
