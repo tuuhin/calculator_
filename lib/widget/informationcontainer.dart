@@ -27,30 +27,31 @@ class InfoContainer extends StatefulWidget {
 class _InfoContainerState extends State<InfoContainer> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('About equals to ',
-                  style: Theme.of(context).textTheme.caption),
-              Text(
-                ((widget.data ?? 0) *
-                        widget.model!.convert(
-                            widget.currentUnit.toString(),
-                            widget.currentUnit == widget.siUnit
-                                ? widget.commonUnit.toString()
-                                : widget.siUnit.toString()))
-                    .toStringAsFixed(2),
-                style: TextStyle(
-                    fontSize: Theme.of(context).textTheme.headline5!.fontSize,
-                    color: Theme.of(context).textTheme.headline4!.color),
-              )
-            ],
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('About equals to ',
+                style: Theme.of(context).textTheme.caption),
+            Text(
+              ((widget.data ?? 0) *
+                          widget.model!.convert(
+                              widget.currentUnit.toString(),
+                              widget.currentUnit == widget.siUnit
+                                  ? widget.commonUnit.toString()
+                                  : widget.siUnit.toString()))
+                      .toStringAsFixed(1) +
+                  (widget.currentUnit == widget.siUnit
+                      ? widget.commonUnitsuffix
+                      : widget.siUnitsuffix),
+              style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.headline5!.fontSize,
+                  color: Theme.of(context).textTheme.headline4!.color),
+            )
+          ],
+        )
+      ],
     );
   }
 }

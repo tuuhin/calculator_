@@ -21,19 +21,25 @@ class _LengthPageState extends State<LengthPage> {
     super.initState();
     _model = LengthDataModel();
     lengthData = _model.getLengthData();
-    _from = lengthData![0];
-    _to = lengthData![0];
+    _from = lengthData![2];
+    _to = lengthData![4];
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
       appBarTitle: 'Length',
+      initialValue: 0.0,
+      model: _model,
       initialaData: lengthData,
       from: _from,
       to: _to,
-      initialValue: 0.0,
-      model: _model,
+      siUnit: _from,
+      siUnitsuffix: 'm',
+      commonUnitsuffix: 'In',
+      commonUnit: _to,
+      defination: 'Length is the distance between ..',
+      formulas: const ['1  J = 0.001 KJ', ' 1J = 4.18 cal'],
     );
   }
 }

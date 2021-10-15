@@ -5,23 +5,34 @@ import 'package:flutter/material.dart';
 
 class BaseView extends StatefulWidget {
   final BaseModel? model;
-  double initialValue;
+  num initialValue;
   String from;
   String to;
   final String appBarTitle;
   final List<String>? initialaData;
-  final Widget? about;
+  final String siUnit;
+  final String commonUnit;
+  final String siUnitsuffix;
+  final String commonUnitsuffix;
+  final List<String>? formulas;
+  final String? defination;
+
   // double Function (String, String) convert;
-  BaseView(
-      {Key? key,
-      this.model,
-      this.about,
-      required this.appBarTitle,
-      required this.initialValue,
-      required this.from,
-      required this.to,
-      this.initialaData})
-      : super(key: key);
+  BaseView({
+    Key? key,
+    this.model,
+    this.initialaData,
+    required this.siUnit,
+    required this.commonUnit,
+    required this.appBarTitle,
+    required this.initialValue,
+    required this.from,
+    required this.to,
+    required this.siUnitsuffix,
+    required this.commonUnitsuffix,
+    this.formulas,
+    this.defination,
+  }) : super(key: key);
 
   @override
   State<BaseView> createState() => _BaseViewState();
@@ -88,17 +99,57 @@ class _BaseViewState extends State<BaseView> {
                   Text(
                     (widget.initialValue *
                             widget.model!.convert(widget.from, widget.to))
-                        .toString(),
+                        .toStringAsPrecision(5),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   Column(
                     children: [
                       const Divider(),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 100,
-                        color: Colors.purple,
-                        child: widget.about,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // const SizedBox(height: 2),
+                          Text(widget.defination ?? '',
+                              style: Theme.of(context).textTheme.subtitle1),
+                          const SizedBox(height: 2),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(children: [
+                                Text('Important conversions',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1),
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: widget.formulas!
+                                        .map((e) => Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 2),
+                                              child: Text(e),
+                                            ))
+                                        .toList())
+                              ]),
+                              Container(
+                                padding: const EdgeInsets.all(1),
+                                child: InfoContainer(
+                                  model: widget.model,
+                                  data: widget.initialValue,
+                                  siUnit: widget.siUnit,
+                                  commonUnit: widget.commonUnit,
+                                  currentUnit: widget.from,
+                                  siUnitsuffix: widget.siUnitsuffix,
+                                  commonUnitsuffix: widget.commonUnitsuffix,
+                                ),
+                                // height: 100,
+                                // color: Colors.purple,
+                              ),
+                            ],
+                          ),
+                        ],
                       )
                     ],
                   )
@@ -111,7 +162,7 @@ class _BaseViewState extends State<BaseView> {
                 NumberBoard(
                   getData: (String data) {
                     setState(() {
-                      widget.initialValue = double.parse(data);
+                      widget.initialValue = num.parse(data);
                     });
                   },
                 ),

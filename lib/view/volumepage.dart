@@ -21,19 +21,25 @@ class _VolumePageState extends State<VolumePage> {
     super.initState();
     _model = VolumeModel();
     volumeData = _model.getVolumnData();
-    _from = volumeData![0];
-    _to = volumeData![0];
+    _from = volumeData![2];
+    _to = volumeData![4];
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      appBarTitle: 'Volume',
+      appBarTitle: 'Length',
+      initialValue: 0.0,
+      model: _model,
       initialaData: volumeData,
       from: _from,
       to: _to,
-      initialValue: 0.0,
-      model: _model,
+      siUnit: _from,
+      siUnitsuffix: 'l',
+      commonUnitsuffix: 'gall',
+      commonUnit: _to,
+      defination: 'Volume defination',
+      formulas: const ['1  J = 0.001 KJ', ' 1J = 4.18 cal'],
     );
   }
 }

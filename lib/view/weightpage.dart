@@ -22,18 +22,24 @@ class _WeightPageState extends State<WeightPage> {
     _model = WeightsModel();
     weightData = _model.getWeightsData();
     _from = weightData![2];
-    _to = weightData![2];
+    _to = weightData![5];
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      appBarTitle: 'Weights and Masses',
+      appBarTitle: 'Length',
+      initialValue: 0.0,
+      model: _model,
       initialaData: weightData,
       from: _from,
       to: _to,
-      initialValue: 0.0,
-      model: _model,
+      siUnit: _from,
+      siUnitsuffix: 'kg',
+      commonUnitsuffix: 'pd',
+      commonUnit: _to,
+      defination: 'deff ..',
+      formulas: const ['1  J = 0.001 KJ', ' 1J = 4.18 cal'],
     );
   }
 }
