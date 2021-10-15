@@ -97,15 +97,6 @@ class AppDrawer extends StatelessWidget {
                 }),
           ),
           const Divider(),
-          ListTile(
-            leading: const Icon(Icons.clear),
-            title: const Text('Clear Data'),
-            dense: true,
-            onTap: () {
-              BaseModel.preferences!.clear();
-            },
-          ),
-          const Divider(),
           const ListTile(
             dense: true,
             leading: Icon(Icons.settings),
