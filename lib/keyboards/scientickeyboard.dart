@@ -1,3 +1,4 @@
+import 'package:calculator/widget/pallette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,10 @@ class ScientificBoard extends StatelessWidget {
           ),
           Wrap(
             children: [
-              TextButton(onPressed: () {}, child: const Text('x\u00B2')),
+              TextButton(
+                  onPressed: () {},
+                  child: const Text('x\u00B2',
+                      style: Palette.singleOperandButton)),
               TextButton(onPressed: () {}, child: const Text('x^y')),
               TextButton(onPressed: () {}, child: const Text('sin')),
               TextButton(onPressed: () {}, child: const Text('cos')),

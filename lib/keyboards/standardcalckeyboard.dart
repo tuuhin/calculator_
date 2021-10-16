@@ -44,7 +44,7 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
     return Container(
       alignment: Alignment.center,
       height: MediaQuery.of(context).size.height * .5,
-      // color: Colors.blue,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       width: MediaQuery.of(context).size.width,
       child: Wrap(
         runSpacing: 10,

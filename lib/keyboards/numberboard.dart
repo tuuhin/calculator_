@@ -23,7 +23,7 @@ class _NumberBoardState extends State<NumberBoard> {
     TextStyle? _buttonNumber = Theme.of(context).textTheme.headline4;
     TextStyle? _elevatedButtonStyle = TextStyle(
         fontSize: Theme.of(context).textTheme.headline5!.fontSize,
-        color: Theme.of(context).scaffoldBackgroundColor);
+        color: Colors.white);
 
     return Row(
       children: [

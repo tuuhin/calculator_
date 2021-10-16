@@ -1,5 +1,4 @@
-import 'package:calculator/model/model.dart';
-import 'package:calculator/view/settings.dart';
+import 'package:calculator/settings/settings.dart';
 import 'package:calculator/view/standardcalculator.dart';
 import 'package:calculator/view/view.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +12,23 @@ class AppDrawer extends StatelessWidget {
     Icons.straighten,
     Icons.fitness_center_outlined,
     Icons.thermostat,
-    Icons.local_fire_department
+    Icons.local_fire_department,
+    Icons.bolt,
+    Icons.compress,
+    Icons.schedule,
+    Icons.power,
   ];
-  final List _screens = [
+  final List<Widget> _screens = [
     const CurrencyPage(),
     const VolumePage(),
     const LengthPage(),
     const WeightPage(),
     const TemperaturePage(),
     const EnergyPage(),
+    const SpeedPage(),
+    const PressurePage(),
+    const TimePage(),
+    const PowerPage(),
   ];
   final List<String> _screensHeading = [
     'Currency',
@@ -29,25 +36,32 @@ class AppDrawer extends StatelessWidget {
     'Length',
     'Weights and Masses',
     'Temperature',
-    'Energy'
+    'Energy',
+    'Speed',
+    'Pressure',
+    'Time',
+    'Power'
   ];
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Drawer(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ListTile(
+    return Drawer(
+        child: CustomScrollView(
+      slivers: [
+        const SliverToBoxAdapter(child: SizedBox(height: 30)),
+        SliverToBoxAdapter(
+          child: ListTile(
+              dense: true,
               onTap: () {
                 Navigator.pop(context);
               },
               leading: const Icon(
                 Icons.menu,
               )),
-          const ListTile(title: Text('Calculators')),
-          const Divider(),
-          ListTile(
+        ),
+        const SliverToBoxAdapter(child: ListTile(title: Text('Calculators'))),
+        const SliverToBoxAdapter(child: Divider()),
+        SliverToBoxAdapter(
+          child: ListTile(
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (BuildContext context) {
@@ -61,7 +75,9 @@ class AppDrawer extends StatelessWidget {
               'Standard',
             ),
           ),
-          ListTile(
+        ),
+        SliverToBoxAdapter(
+          child: ListTile(
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (BuildContext context) {
@@ -75,30 +91,40 @@ class AppDrawer extends StatelessWidget {
               'Scientific',
             ),
           ),
-          const ListTile(title: Text('Convertors')),
-          const Divider(),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.45,
-            child: ListView.builder(
-                itemCount: _screens.length,
-                itemBuilder: (BuildContext context, int i) {
-                  return ListTile(
-                    dense: true,
-                    leading: Icon(_screensIcon[i]),
-                    title: Text(_screensHeading[i]),
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                          return _screens[i];
-                        }),
-                      );
-                    },
-                  );
-                }),
+        ),
+        const SliverToBoxAdapter(child: ListTile(title: Text('Convertors'))),
+        const SliverToBoxAdapter(child: Divider()),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            // height: MediaQuery.of(context).size.height * 0.45,
+            child: Column(
+              children: _screens
+                  .asMap()
+                  .map(
+                    (int key, Widget value) => MapEntry(
+                      key,
+                      ListTile(
+                        dense: true,
+                        leading: Icon(_screensIcon[key]),
+                        title: Text(_screensHeading[key]),
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                              return _screens[key];
+                            }),
+                          );
+                        },
+                      ),
+                    ),
+                  )
+                  .values
+                  .toList(),
+            ),
           ),
-          const Divider(),
-          ListTile(
-            dense: true,
+        ),
+        const SliverToBoxAdapter(child: Divider()),
+        SliverToBoxAdapter(
+          child: ListTile(
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (BuildContext context) {
@@ -108,9 +134,9 @@ class AppDrawer extends StatelessWidget {
             },
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
-          )
-        ],
-      )),
-    );
+          ),
+        )
+      ],
+    ));
   }
 }

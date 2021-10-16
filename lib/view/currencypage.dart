@@ -1,6 +1,7 @@
 import 'package:calculator/keyboards/keyboard.dart';
 import 'package:calculator/model/currencymodel.dart';
 import 'package:calculator/widget/fetchwidget.dart';
+import 'package:calculator/widget/pallette.dart';
 import 'package:calculator/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -78,7 +79,8 @@ class _CurrencyPageState extends State<CurrencyPage> {
                               });
                             },
                           ),
-                          Text('$input', style: Palette.largetext),
+                          Text('$input',
+                              style: Theme.of(context).textTheme.headline4),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -107,7 +109,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
                             },
                           ),
                           Text((input * value1).toStringAsFixed(2),
-                              style: Palette.largetext),
+                              style: Theme.of(context).textTheme.headline4),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -137,7 +139,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
                             },
                           ),
                           Text((input * value2).toStringAsFixed(2),
-                              style: Palette.largetext),
+                              style: Theme.of(context).textTheme.headline4),
                         ],
                       ),
                       const SizedBox(height: 10),

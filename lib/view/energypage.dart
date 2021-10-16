@@ -1,6 +1,5 @@
 import 'package:calculator/model/model.dart';
 import 'package:calculator/view/view.dart';
-import 'package:calculator/widget/widget.dart';
 import 'package:flutter/material.dart';
 
 class EnergyPage extends StatefulWidget {
@@ -39,7 +38,8 @@ class _EnergyPageState extends State<EnergyPage> {
       siUnitsuffix: 'J',
       commonUnitsuffix: 'cal',
       commonUnit: _to,
-      defination: 'Energy is the rate of doing work...',
+      defination:
+          'Energy is the power derived from the utilization of physical or chemical resources,especially to provide light or heat or to work machines',
       formulas: const ['1  J = 0.001 KJ', ' 1J = 4.18 cal'],
     );
   }

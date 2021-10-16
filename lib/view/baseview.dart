@@ -64,7 +64,6 @@ class _BaseViewState extends State<BaseView> {
                         .map<DropdownMenuItem<String>>(
                             (String v) => DropdownMenuItem(
                                   value: v,
-                                  alignment: Alignment.center,
                                   child: Text(v),
                                 ))
                         .toList(),
@@ -86,7 +85,6 @@ class _BaseViewState extends State<BaseView> {
                         .map<DropdownMenuItem<String>>(
                             (String v) => DropdownMenuItem(
                                   value: v,
-                                  alignment: Alignment.center,
                                   child: Text(v),
                                 ))
                         .toList(),
