@@ -30,7 +30,7 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
   }
 
   void valueOnNumber(String op) {
-    widget.output!.call(_calc.calculate(op, log: false).toString());
+    widget.output!.call(_calc.calculate(op, log: false));
   }
 
   String _input = '';
@@ -286,7 +286,7 @@ class _StdCalcBoardState extends State<StdCalcBoard> {
           TextButton(
               onPressed: () {
                 _calc.calculate(_input);
-                // print(_calc.logs);
+
                 widget.history!.call(_calc.logs);
                 widget.input!.call(_calc.logs.last[1]);
                 widget.output!.call(_calc.logs.last[1]);

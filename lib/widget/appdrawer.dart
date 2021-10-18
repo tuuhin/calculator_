@@ -1,6 +1,7 @@
 import 'package:calculator/settings/settings.dart';
 import 'package:calculator/view/standardcalculator.dart';
 import 'package:calculator/view/view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -46,6 +47,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
         child: CustomScrollView(
+      physics: const BouncingScrollPhysics(),
       slivers: [
         const SliverToBoxAdapter(child: SizedBox(height: 30)),
         SliverToBoxAdapter(
@@ -76,22 +78,22 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
         ),
-        SliverToBoxAdapter(
-          child: ListTile(
-            onTap: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (BuildContext context) {
-                  return const ScientificCalculator();
-                }),
-              );
-            },
-            leading: const Icon(Icons.science),
-            dense: true,
-            title: const Text(
-              'Scientific',
-            ),
-          ),
-        ),
+        // SliverToBoxAdapter(
+        //   child: ListTile(
+        //     onTap: () {
+        //       Navigator.of(context).pushReplacement(
+        //         MaterialPageRoute(builder: (BuildContext context) {
+        //           return const ScientificCalculator();
+        //         }),
+        //       );
+        //     },
+        //     leading: const Icon(Icons.science),
+        //     dense: true,
+        //     title: const Text(
+        //       'Scientific',
+        //     ),
+        //   ),
+        // ),
         const SliverToBoxAdapter(child: ListTile(title: Text('Convertors'))),
         const SliverToBoxAdapter(child: Divider()),
         SliverToBoxAdapter(
@@ -133,7 +135,7 @@ class AppDrawer extends StatelessWidget {
               );
             },
             leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
+            title: const Text('About'),
           ),
         )
       ],

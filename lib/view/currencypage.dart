@@ -1,7 +1,6 @@
 import 'package:calculator/keyboards/keyboard.dart';
 import 'package:calculator/model/currencymodel.dart';
 import 'package:calculator/widget/fetchwidget.dart';
-import 'package:calculator/widget/pallette.dart';
 import 'package:calculator/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

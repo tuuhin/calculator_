@@ -1,6 +1,7 @@
 import 'package:calculator/keyboards/keyboard.dart';
 import 'package:calculator/widget/appdrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class StandardCalculator extends StatefulWidget {
   const StandardCalculator({Key? key}) : super(key: key);
@@ -10,14 +11,6 @@ class StandardCalculator extends StatefulWidget {
 }
 
 class _StandardCalculatorState extends State<StandardCalculator> {
-  late ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
-
   String _input = '';
   String _outputs = '';
   List _logs = [];
@@ -28,7 +21,8 @@ class _StandardCalculatorState extends State<StandardCalculator> {
       appBar: AppBar(title: const Text('Standard')),
       drawer: AppDrawer(),
       body: CustomScrollView(
-        controller: _scrollController,
+        controller: ScrollController(
+            initialScrollOffset: MediaQuery.of(context).size.height),
         // physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(

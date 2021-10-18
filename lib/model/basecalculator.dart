@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
+import 'package:intl/intl.dart';
 
 class BaseCalculator {
   static final Parser _par = Parser();
@@ -12,10 +13,11 @@ class BaseCalculator {
     try {
       Expression _exp = _par.parse(eval);
       double _return = _exp.evaluate(EvaluationType.REAL, _model);
+      String _ans = NumberFormat.decimalPattern().format(_return);
       if (log) {
-        logs.add([eval, _return.toString()]);
+        logs.add([eval, _ans]);
       }
-      return _return;
+      return _ans;
     } catch (e) {
       print(e.toString());
       if (log) logs.add([eval, 'Error']);
@@ -23,22 +25,20 @@ class BaseCalculator {
     }
   }
 
-  double? _sqrt(double? op) => op != null ? math.sqrt(op) : null;
+  double? _sqrt(String? op) => op != null ? math.sqrt(num.parse(op)) : null;
 
   getSqrt(String eval) {
     if (_operators.any((element) => eval.endsWith(element))) {
       String _lastOperand =
           _sqrt(calculate(eval.substring(0, eval.length - 1), log: false))
               .toString();
-      double? _ans = calculate(eval + _lastOperand, log: false);
-      logs.add([
-        '$eval sqrt(${eval.substring(0, eval.length - 1)})',
-        _ans.toString()
-      ]);
+      String? _ans = calculate(eval + _lastOperand, log: false);
+      logs.add(['$eval sqrt(${eval.substring(0, eval.length - 1)})', _ans]);
       return _ans;
     } else {
-      double? _ans = _sqrt(calculate(eval, log: false));
-      logs.add(['sqrt($eval)', _ans.toString()]);
+      double? _value = _sqrt(calculate(eval, log: false));
+      String _ans = NumberFormat.decimalPattern().format(_value);
+      logs.add(['sqrt($eval)', _ans]);
       return _ans;
     }
   }
@@ -52,15 +52,12 @@ class BaseCalculator {
       String _lastOperand =
           calculate(eval.substring(0, eval.length - 1) + '^2', log: false)
               .toString();
-      double? _ans = calculate(eval + _lastOperand, log: false);
-      logs.add([
-        '$eval sqr(${eval.substring(0, eval.length - 1)})',
-        _ans.toString()
-      ]);
+      String? _ans = calculate(eval + _lastOperand, log: false);
+      logs.add(['$eval sqr(${eval.substring(0, eval.length - 1)})', _ans]);
       return _ans;
     } else {
-      double? _ans = (calculate('($eval)^2', log: false));
-      logs.add(['sqrt($eval)', _ans.toString()]);
+      String? _ans = (calculate('($eval)^2', log: false));
+      logs.add(['sqrt($eval)', _ans]);
       return _ans;
     }
   }
@@ -70,15 +67,12 @@ class BaseCalculator {
       String _lastOperand =
           calculate('1/${eval.substring(0, eval.length - 1)}', log: false)
               .toString();
-      double? _ans = calculate(eval + _lastOperand, log: false);
-      logs.add([
-        '$eval recp(${eval.substring(0, eval.length - 1)})',
-        _ans.toString()
-      ]);
+      String? _ans = calculate(eval + _lastOperand, log: false);
+      logs.add(['$eval recp(${eval.substring(0, eval.length - 1)})', _ans]);
       return _ans;
     } else {
-      double? _ans = calculate('1/($eval)', log: false);
-      logs.add(['recp($eval)', _ans.toString()]);
+      String? _ans = calculate('1/($eval)', log: false);
+      logs.add(['recp($eval)', _ans]);
       return _ans;
     }
   }

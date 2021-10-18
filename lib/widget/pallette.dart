@@ -23,7 +23,7 @@ class Palette {
       backgroundColor: Colors.deepOrange,
       centerTitle: true,
     ),
-    colorScheme: ColorScheme.dark(),
+    colorScheme: const ColorScheme.dark(),
   );
 
   static const TextStyle singleOperandButton = TextStyle(
