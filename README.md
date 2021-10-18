@@ -1,12 +1,25 @@
-# calculator
+# Calculator
 
-A new Flutter project.
+Its a calculator project with convertors added as like a basic phone calculator
 
-## Getting Started
+## Calculator
+It have functionality of a normal calculator with basic add subtract multiply and divide.
+and some few single operand functionality like sqrt ,square reciprocal
 
-This project is a starting point for a Flutter application.
+## Convertors
+- Currency Convertor
+- Temperature Convertor
+- Volumne Convertor
+- Length Convertor
+- Weights and Masses Convertor
+- Temperature Convertor
+- Energy Convertor
+- Speed Convertor
+- Pressure Convertor
+- Time Convertor
+- Power Convertor
 
-A few resources to get you started if this is your first Flutter project:
+#### This is a flutter project
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
