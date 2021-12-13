@@ -1,21 +1,23 @@
-import 'package:calculator/model/model.dart';
-import 'package:calculator/settings/themeprovider.dart';
-import 'package:calculator/view/standardcalculator.dart';
-import 'package:calculator/widget/pallette.dart';
+import 'package:calculator/data/local/currency_hive_database.dart';
+import 'package:calculator/data/local/local_database.dart';
+import 'package:calculator/services/currency_service.dart';
+import 'package:calculator/services/inbuilt_convertor_service.dart';
+import 'package:calculator/ui/theme/pallette.dart';
+import 'package:calculator/ui/view/standardcalculator.dart';
+import 'package:calculator/utils/themeprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await BaseModel.init();
-  if (BaseModel.getKeys()) {
-    await BaseModel.setdata();
-  }
-  if (CurrencyModel.keycheck() == null) {
-    await CurrencyModel().fetchData();
-  }
-
+  await dotenv.load(fileName: '.env');
+  await Hive.initFlutter();
+  await CurrencyHiveDatabase.init();
+  await LocalDataBase.addData();
+  await InBuiltConvertor.init();
   runApp(const MyApp());
 }
 
@@ -30,17 +32,18 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      builder: (BuildContext context, _) {
-        return MaterialApp(
-            title: 'Calculator',
-            debugShowCheckedModeBanner: false,
-            themeMode: Provider.of<ThemeProvider>(context).themeMode,
-            darkTheme: Palette.darkTheme,
-            theme: Palette.lightTheme,
-            home: const StandardCalculator());
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider<CurrencyData>(create: (_) => CurrencyData())
+      ],
+      builder: (context, widget) => MaterialApp(
+          title: 'Calculator',
+          debugShowCheckedModeBanner: false,
+          themeMode: Provider.of<ThemeProvider>(context).themeMode,
+          darkTheme: Palette.darkTheme,
+          theme: Palette.lightTheme,
+          home: const StandardCalculator()),
     );
   }
 }
