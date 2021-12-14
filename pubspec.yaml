@@ -61,14 +61,16 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/calculator.png"
+  web: false
+  image_path: "assets/calculator_logo_2.png"
 
 flutter_native_splash:
   color: "#ffffff"
   color_dark: "#303030"
-  image: "assets/calculator.png"
+  image: "assets/calculator_logo_2.png"
   android: true
   ios: true
+  web: false
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
