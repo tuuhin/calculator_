@@ -19,4 +19,20 @@ class Rates {
       return 0.0;
     }
   }
+
+  static num? getTemperature(String from, String to, num value) {
+    if (from == to) return value;
+    if (from == 'Farhenheit') {
+      if (to == 'Celcius') return (value - 32) / 1.8;
+      return ((value - 32) / 1.8) + 273.15;
+    } else if (from == 'Celcius') {
+      if (to == 'Kelvin') return value + 273.15;
+      return value * 1.8 + 32;
+    } else if (from == 'Kelvin') {
+      if (to == 'Celcius') return value - 273.15;
+      return ((value - 273.15) * 1.8) + 32;
+    } else {
+      return 0.0;
+    }
+  }
 }

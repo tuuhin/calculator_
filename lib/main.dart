@@ -4,7 +4,7 @@ import 'package:calculator/services/currency_service.dart';
 import 'package:calculator/services/inbuilt_convertor_service.dart';
 import 'package:calculator/ui/theme/pallette.dart';
 import 'package:calculator/ui/view/standardcalculator.dart';
-import 'package:calculator/utils/themeprovider.dart';
+import 'package:calculator/ui/theme/themeprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

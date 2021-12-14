@@ -10,4 +10,3 @@ export 'speedpage.dart';
 export 'pressurepage.dart';
 export 'timepage.dart';
 export 'powerpage.dart';
-export 'settings.dart';

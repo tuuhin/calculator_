@@ -123,6 +123,7 @@ class _NumberBoardState extends State<NumberBoard> {
                     onPressed: () {
                       if (widget.plusMinus != null &&
                           widget.plusMinus == true &&
+                          keyvalue.isNotEmpty &&
                           keyvalue != '0') {
                         print(getnegative(keyvalue));
                         keyvalue = getnegative(keyvalue).toString();

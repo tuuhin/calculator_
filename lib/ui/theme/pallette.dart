@@ -16,10 +16,15 @@ class Palette {
         style: TextButton.styleFrom(primary: Colors.indigo[300])),
   );
   static ThemeData darkTheme = ThemeData(
+    fontFamily: GoogleFonts.poppins().fontFamily,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.deepPurple[700],
+      centerTitle: true,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(primary: Colors.deepOrange)),
+        style: ElevatedButton.styleFrom(primary: Colors.deepPurple[700])),
     textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(primary: Colors.deepOrange)),
+        style: TextButton.styleFrom(primary: Colors.deepPurpleAccent[700])),
     colorScheme: const ColorScheme.dark(),
   );
 

@@ -1,8 +1,8 @@
 import 'package:calculator/data/local/currency_hive_database.dart';
 import 'package:calculator/services/currency_service.dart';
+import 'package:calculator/ui/drawer/appdrawer.dart';
 import 'package:calculator/ui/view/excahnge_rates/currencypage.dart';
 import 'package:calculator/ui/view/excahnge_rates/fetchwidget.dart';
-import 'package:calculator/ui/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

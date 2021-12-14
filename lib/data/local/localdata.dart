@@ -1,7 +1,7 @@
 class LocalData {
   static const List<String> temperature = [
     'Celcius',
-    'Farenheit',
+    'Farhenheit',
     'Kelvin',
   ];
 

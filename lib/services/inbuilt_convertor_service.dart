@@ -45,7 +45,7 @@ class InBuiltConvertor {
   }
 
   static Map<String, dynamic>? getSpeedData() {
-    return inbuilt!.get('speed').cast<String, dynamic>();
+    return inbuilt!.get('speeds').cast<String, dynamic>();
   }
 
   static List<String>? getTemperatureData() {

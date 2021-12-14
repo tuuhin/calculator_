@@ -1,5 +1,6 @@
 import 'package:calculator/services/calculate_excange_rates.dart';
 import 'package:calculator/services/inbuilt_convertor_service.dart';
+import 'package:calculator/ui/drawer/appdrawer.dart';
 import 'package:calculator/ui/keyboards/keyboard.dart';
 import 'package:flutter/material.dart';
 
@@ -38,15 +39,9 @@ class _BaseViewState extends State<BaseView> {
   Widget build(BuildContext context) {
     _toValue = _rates.getRates(_fromUnit, _toUnit, _fromValue) ?? 0.0;
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text(widget.title),
-        actions: [
-          IconButton(
-              onPressed: () {
-                print(InBuiltConvertor.getLengthData());
-              },
-              icon: Icon(Icons.add))
-        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -57,17 +52,10 @@ class _BaseViewState extends State<BaseView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Exchange Rates',
+                Text('${widget.title} convertor'.toUpperCase(),
                     style: Theme.of(context).textTheme.caption),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('$_fromValue',
-                        style: Theme.of(context).textTheme.headline3),
-                    Text('$_fromUnit -> $_toUnit',
-                        style: Theme.of(context).textTheme.caption),
-                  ],
-                ),
+                Text('$_fromValue',
+                    style: Theme.of(context).textTheme.headline3),
               ],
             ),
           ),
@@ -84,21 +72,30 @@ class _BaseViewState extends State<BaseView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  DropdownButton(
-                      underline: const SizedBox(),
-                      value: _fromUnit,
-                      onChanged: (String? value) {
-                        setState(() {
-                          _fromUnit = value ?? _fromUnit;
-                        });
-                      },
-                      items: _units
-                          .map<DropdownMenuItem<String>>(
-                              (String v) => DropdownMenuItem(
-                                    value: v,
-                                    child: Text(v),
-                                  ))
-                          .toList()),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text('$_fromValue',
+                          style: Theme.of(context).textTheme.subtitle1),
+                      DropdownButton(
+                          underline: const SizedBox(),
+                          value: _fromUnit,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _fromUnit = value ?? _fromUnit;
+                            });
+                          },
+                          items: _units
+                              .map<DropdownMenuItem<String>>((String v) =>
+                                  DropdownMenuItem(
+                                      value: v,
+                                      child: Text(v,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1)))
+                              .toList()),
+                    ],
+                  ),
                   const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -106,7 +103,6 @@ class _BaseViewState extends State<BaseView> {
                       Text('$_toValue',
                           style: Theme.of(context).textTheme.headline5),
                       DropdownButton(
-                          icon: const Icon(Icons.arrow_right),
                           underline: const SizedBox(),
                           value: _toUnit,
                           onChanged: (String? value) {
@@ -118,7 +114,10 @@ class _BaseViewState extends State<BaseView> {
                               .map<DropdownMenuItem<String>>(
                                   (String v) => DropdownMenuItem(
                                         value: v,
-                                        child: Text(v),
+                                        child: Text(v,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2),
                                       ))
                               .toList()),
                     ],
