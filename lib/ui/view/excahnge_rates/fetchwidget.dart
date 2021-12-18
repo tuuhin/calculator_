@@ -9,7 +9,7 @@ class FetchWidget extends StatelessWidget {
     return Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 30),
-        child: Image.asset('assets/exchange.png', scale: 2),
+        child: Image.asset('assets/exchange_2.png', scale: 2),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),

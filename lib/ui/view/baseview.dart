@@ -134,7 +134,6 @@ class _BaseViewState extends State<BaseView> {
               setState(() {
                 _fromValue = num.parse(value);
               });
-              print(value);
             },
           ),
         ],

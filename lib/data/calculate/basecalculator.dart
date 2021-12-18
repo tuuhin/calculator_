@@ -9,11 +9,13 @@ class BaseCalculator {
   static final ContextModel _model = ContextModel();
 
   calculate(String eval, {bool log = true}) {
-    // print(eval);
     try {
       Expression _exp = _par.parse(eval);
-      double _return = _exp.evaluate(EvaluationType.REAL, _model);
-      String _ans = NumberFormat.decimalPattern().format(_return);
+      num _value = _exp.evaluate(EvaluationType.REAL, _model);
+      String _ans =
+          NumberFormat(_value != _value.round() ? '.####' : '#', 'en_US')
+              .format(_value);
+
       if (log) {
         logs.add([eval, _ans]);
       }
@@ -57,7 +59,7 @@ class BaseCalculator {
       return _ans;
     } else {
       String? _ans = (calculate('($eval)^2', log: false));
-      logs.add(['sqrt($eval)', _ans]);
+      logs.add(['$eval' '\u00b2', _ans]);
       return _ans;
     }
   }
@@ -72,7 +74,7 @@ class BaseCalculator {
       return _ans;
     } else {
       String? _ans = calculate('1/($eval)', log: false);
-      logs.add(['recp($eval)', _ans]);
+      logs.add(['1/($eval)', _ans]);
       return _ans;
     }
   }

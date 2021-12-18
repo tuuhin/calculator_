@@ -1,5 +1,6 @@
 import 'package:calculator/ui/view/excahnge_rates/currencyview.dart';
 import 'package:calculator/ui/view/view.dart';
+import 'package:calculator/ui/view/calculator/calculator.dart';
 import 'package:calculator/ui/theme/themeprovider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

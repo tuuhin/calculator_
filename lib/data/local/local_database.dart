@@ -4,9 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 class LocalDataBase {
   static addData() async {
     bool add = await Hive.boxExists('inbuilt');
-    print('i am called $add');
+    print(' $add');
     if (!add) {
-      print('checking');
       Box? inbuilt = await Hive.openBox('inbuilt');
       await inbuilt.put('length', LocalData.length);
       await inbuilt.put('energy', LocalData.energy);
@@ -17,6 +16,7 @@ class LocalDataBase {
       await inbuilt.put('time', LocalData.time);
       await inbuilt.put('volume', LocalData.volume);
       await inbuilt.put('weights', LocalData.weights);
+      print('inbuilt values are added  ');
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:calculator/services/calculate_excange_rates.dart';
 import 'package:calculator/ui/keyboards/keyboard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class CurrencyPageView extends StatefulWidget {
   final Map<String, dynamic>? exchangeRates;
@@ -87,7 +88,7 @@ class _CurrencyPageViewState extends State<CurrencyPageView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('$_toValue',
+                    Text(NumberFormat.decimalPattern().format(_toValue),
                         style: Theme.of(context).textTheme.headline5),
                     DropdownButton(
                         icon: const Icon(Icons.arrow_right),
@@ -119,7 +120,6 @@ class _CurrencyPageViewState extends State<CurrencyPageView> {
             setState(() {
               _fromValue = num.parse(value);
             });
-            print(value);
           },
         ),
       ],

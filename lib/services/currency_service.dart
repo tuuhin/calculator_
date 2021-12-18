@@ -7,7 +7,7 @@ class CurrencyData with ChangeNotifier {
 
   void checkEntryExists() {
     bool _exists = CurrencyHiveDatabase.checkEntryExists();
-    print(_exists);
+
     _success = _exists;
     notifyListeners();
   }

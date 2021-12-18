@@ -129,7 +129,6 @@ class _TemperaturePageState extends State<TemperaturePage> {
               setState(() {
                 _fromValue = num.parse(value);
               });
-              print(value);
             },
           ),
         ],

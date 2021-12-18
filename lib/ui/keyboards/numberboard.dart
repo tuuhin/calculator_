@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NumberBoard extends StatefulWidget {
   final ValueChanged<String>? getData;
@@ -43,10 +44,7 @@ class _NumberBoardState extends State<NumberBoard> {
                       keyvalue += '1';
                       widget.getData!.call(keyvalue);
                     },
-                    child: Text(
-                      '1',
-                      style: _buttonNumber,
-                    )),
+                    child: Text('1', style: _buttonNumber)),
                 TextButton(
                     onPressed: () {
                       keyvalue += '2';
@@ -125,7 +123,6 @@ class _NumberBoardState extends State<NumberBoard> {
                           widget.plusMinus == true &&
                           keyvalue.isNotEmpty &&
                           keyvalue != '0') {
-                        print(getnegative(keyvalue));
                         keyvalue = getnegative(keyvalue).toString();
                         widget.getData!.call(keyvalue);
                       }
